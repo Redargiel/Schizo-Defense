@@ -1,0 +1,4 @@
+repository "Schizo-Defense-Original@Redargiel@cloud"
+  path "/"
+    br "/main"
+    co "/main"
