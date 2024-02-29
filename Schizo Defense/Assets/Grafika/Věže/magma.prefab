@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7191587495335070594
+--- !u!1001 &3794719422031403415
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       propertyPath: m_Name
-      value: magma
+      value: Magma
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -70,23 +70,44 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2783657002138939065}
+      addedObject: {fileID: -5161101778021985659}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1163838112984939936}
+      addedObject: {fileID: -4774809192645334233}
   m_SourcePrefab: {fileID: 100100000, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
---- !u!1 &8001998685839537875 stripped
+--- !u!1 &4064750333224035526 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 88d67ae557e1047448e361d1924cce1c, type: 3}
-  m_PrefabInstance: {fileID: 7191587495335070594}
+  m_PrefabInstance: {fileID: 3794719422031403415}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &-2783657002138939065
+--- !u!65 &-5161101778021985659
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4064750333224035526}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &-4774809192645334233
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001998685839537875}
+  m_GameObject: {fileID: 4064750333224035526}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -122,24 +143,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-1163838112984939936
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001998685839537875}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
