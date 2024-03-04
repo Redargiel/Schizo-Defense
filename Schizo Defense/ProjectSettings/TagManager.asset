@@ -6,6 +6,7 @@ TagManager:
   tags:
   - platform
   - occupied
+  - enemy
   layers:
   - Default
   - TransparentFX
