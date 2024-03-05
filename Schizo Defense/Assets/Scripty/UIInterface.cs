@@ -90,9 +90,9 @@ public class UIInterface : MonoBehaviour
     {
         RaycastHit[] hits = Physics.RaycastAll(ray);
 
-        Array.Sort(hits, (x,y) => x.distance.CompareTo(y.distance));
+        Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
-        foreach(RaycastHit raycastHit in hits)
+        foreach (RaycastHit raycastHit in hits)
         {
             if (!raycastHit.collider.isTrigger)
             {
