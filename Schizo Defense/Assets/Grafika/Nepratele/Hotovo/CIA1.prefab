@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
+  healthBarPrefab: {fileID: 9182512896377852480, guid: 3f9bc49cab068ba4a93365346ca2d8a6, type: 3}
 --- !u!23 &8166905075147371744
 MeshRenderer:
   m_ObjectHideFlags: 0
