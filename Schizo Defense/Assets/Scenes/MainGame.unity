@@ -39357,7 +39357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb94b4d678e10141a36db9ad5028f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gatlingTower: {fileID: 2618448520933869874, guid: d1d190b2ce4ed764880fc46dbc1cac81, type: 3}
+  gatlingTower: {fileID: 4064750333224035526, guid: 5ddf6ea7f8e490f49895dd204fb37316, type: 3}
 --- !u!1001 &627992949
 PrefabInstance:
   m_ObjectHideFlags: 0
