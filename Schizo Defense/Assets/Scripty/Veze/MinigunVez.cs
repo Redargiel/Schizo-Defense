@@ -16,6 +16,10 @@ public class MinigunVez : MonoBehaviour
 
     private GameObject currentTarget;
 
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    private bool isReloading = false;
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("enemy"))
@@ -89,10 +93,33 @@ public class MinigunVez : MonoBehaviour
                 Fire();
             }
         }
+        else
+        {
+            UpdateTarget();
+        }
+    }
+
+    public void EnemyDestroyed(GameObject enemy)
+    {
+        if (enemiesInRange.Contains(enemy))
+        {
+            enemiesInRange.Remove(enemy);
+            UpdateTarget();
+        }
     }
 
     private void Fire()
     {
-        Debug.Log("Strili po enemacich");
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        projectile.GetComponent<MinigunProjectile>().SetDamage(25);
+        projectile.GetComponent<Rigidbody>().velocity = firePoint.forward * 12f;
+        StartCoroutine(Reload());
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(0.1f);
+        isReloading = false;
     }
 }

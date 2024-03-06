@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
 
     private List<Transform> wayPoints;
 
+    public LayerMask towerLayer;
+
     private int currentWayPointIndex = 0;
 
     private float agentStoppingDistance = 0.3f;
@@ -76,6 +78,18 @@ public class EnemyController : MonoBehaviour
             healthBar.value -= damage;
             if (healthBar.value <= 0)
             {
+                float range = 15f;
+
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, towerLayer);
+
+                foreach (var hitCollider in hitColliders)
+                {
+                    MinigunVez tower = hitCollider.GetComponent<MinigunVez>();
+                    if (tower != null)
+                    {
+                        tower.EnemyDestroyed(gameObject);
+                    }
+                }
                 Destroy(healthBar.gameObject);
                 Destroy(this.gameObject);
             }

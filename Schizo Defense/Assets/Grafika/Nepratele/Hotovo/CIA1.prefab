@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef333dda6309834486eb8ad90764992, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.723964
+      value: 26.628857
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef333dda6309834486eb8ad90764992, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef333dda6309834486eb8ad90764992, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.000263
+      value: 2.9176292
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ef333dda6309834486eb8ad90764992, type: 3}
       propertyPath: m_LocalRotation.w
@@ -145,7 +145,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
+  towerLayer:
+    serializedVersion: 2
+    m_Bits: 128
   healthBarPrefab: {fileID: 9182512896377852480, guid: 3f9bc49cab068ba4a93365346ca2d8a6, type: 3}
+  maxHealth: 100
 --- !u!23 &8166905075147371744
 MeshRenderer:
   m_ObjectHideFlags: 0
