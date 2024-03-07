@@ -114,7 +114,7 @@ public class MinigunVez : MonoBehaviour
         {
             IsReloading = true;
         }
-        if (IsReloading && reloadCounter < 120)
+        if (IsReloading && reloadCounter < 50)
         {
             reloadCounter++;
             return;
