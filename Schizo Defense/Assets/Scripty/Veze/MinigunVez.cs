@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class MinigunVez : MonoBehaviour
 
     public GameObject core;
 
-    public float turningSpeed = 10;
+    public float turningSpeed = 20;
 
     public float angleTurningAccuracy = 80;
 
@@ -17,8 +18,14 @@ public class MinigunVez : MonoBehaviour
     private GameObject currentTarget;
 
     public GameObject projectilePrefab;
+
     public Transform firePoint;
-    private bool isReloading = false;
+
+    private int reloadCounter = 0;
+
+    private int bulletsFired = 0;
+
+    private bool IsReloading = false;
 
     private void OnTriggerEnter(Collider col)
     {
@@ -61,15 +68,8 @@ public class MinigunVez : MonoBehaviour
                 closestEnemy = enemy;
             }
         }
-
-        if (closestEnemy != null)
-        {
-            currentTarget = closestEnemy;
-        }
-        else
-        {
-            currentTarget = null;
-        }
+        
+        currentTarget = closestEnemy;
     }
 
     private void Update()
@@ -110,16 +110,20 @@ public class MinigunVez : MonoBehaviour
 
     private void Fire()
     {
+        if (bulletsFired % 30 == 0 && !IsReloading)
+        {
+            IsReloading = true;
+        }
+        if (IsReloading && reloadCounter < 120)
+        {
+            reloadCounter++;
+            return;
+        }
+        IsReloading = false;
+        reloadCounter = 0;
+        bulletsFired++;
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         projectile.GetComponent<MinigunProjectile>().SetDamage(25);
-        projectile.GetComponent<Rigidbody>().velocity = firePoint.forward * 12f;
-        StartCoroutine(Reload());
-    }
-
-    private IEnumerator Reload()
-    {
-        isReloading = true;
-        yield return new WaitForSeconds(0.1f);
-        isReloading = false;
+        projectile.GetComponent<Rigidbody>().velocity = firePoint.forward * 14f;
     }
 }
