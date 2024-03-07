@@ -3,7 +3,6 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public float movementSpeed = 5f; // Rychlost pohybu kamery
-    public float borderSize = 10000f; // Velikost borderu
     public float rotationSpeed = 3f; // Rychlost otáèení kamery pomocí myši
 
     private bool isRotating = false; // Promìnná urèující, zda se má kamera otáèet
@@ -50,17 +49,9 @@ public class CameraMovement : MonoBehaviour
             transform.Rotate(Vector3.up, mouseX, Space.World);
             transform.Rotate(Vector3.left, mouseY, Space.Self);
         }
-
-        // Omezení pohybu kamery na urèený border mapy
-        Vector3 currentPosition = transform.position;
-
-        currentPosition.x = Mathf.Clamp(currentPosition.x, -borderSize, borderSize);
-        currentPosition.z = Mathf.Clamp(currentPosition.z, -borderSize, borderSize);
-
-        // Aktualizace pozice kamery s omezeným pohybem
-        transform.position = currentPosition;
     }
 }
+
 
 
 
