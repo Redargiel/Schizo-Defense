@@ -9,6 +9,26 @@ public class UIInterface : MonoBehaviour
 
     GameObject focusObs;
 
+    // Funkce pro pokládání vìže na urèené místo na herní ploše
+    public void PlaceTower(GameObject towerPrefab)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!RaycastWithoutTriggers(ray, out hit))
+        {
+            return;
+        }
+
+        // Zkontrolujte, zda je na platformì již vìž
+        if (hit.collider.gameObject.CompareTag("platform") && hit.collider.gameObject.transform.childCount == 0)
+        {
+            Vector3 center = hit.collider.bounds.center;
+            center.y = towerPrefab.transform.position.y; // Zarovnání se Y pozicí vìže
+            focusObs = Instantiate(towerPrefab, center, towerPrefab.transform.rotation);
+            DisableColliders();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -16,7 +36,7 @@ public class UIInterface : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (!RacyastWithoutTriggers(ray, out hit))
+            if (!RaycastWithoutTriggers(ray, out hit))
             {
                 return;
             }
@@ -34,7 +54,7 @@ public class UIInterface : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (RacyastWithoutTriggers(ray, out hit))
+            if (RaycastWithoutTriggers(ray, out hit))
             {
                 focusObs.transform.position = hit.collider.bounds.center;
             }
@@ -43,7 +63,7 @@ public class UIInterface : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (RacyastWithoutTriggers(ray, out hit))
+            if (RaycastWithoutTriggers(ray, out hit))
             {
                 if (hit.collider.gameObject.CompareTag("platform"))
                 {
@@ -86,7 +106,7 @@ public class UIInterface : MonoBehaviour
         }
     }
 
-    private bool RacyastWithoutTriggers(Ray ray, out RaycastHit hit)
+    private bool RaycastWithoutTriggers(Ray ray, out RaycastHit hit)
     {
         RaycastHit[] hits = Physics.RaycastAll(ray);
 
@@ -105,6 +125,7 @@ public class UIInterface : MonoBehaviour
         return false;
     }
 }
+
 
 
 

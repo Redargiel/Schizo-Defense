@@ -123,7 +123,7 @@ public class MinigunVez : MonoBehaviour
         reloadCounter = 0;
         bulletsFired++;
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        projectile.GetComponent<MinigunProjectile>().SetDamage(25);
+        projectile.GetComponent<MinigunProjectile>().SetDamage(5);
         projectile.GetComponent<Rigidbody>().velocity = firePoint.forward * 14f;
     }
 }
