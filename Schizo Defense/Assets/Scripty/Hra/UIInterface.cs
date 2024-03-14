@@ -6,31 +6,25 @@ using UnityEngine;
 public class UIInterface : MonoBehaviour
 {
     public GameObject gatlingTower;
+    public GameObject missileTower;
+    public GameObject laserTower;
+
+    private GameObject selectedTower;
 
     GameObject focusObs;
 
-    // Funkce pro pokládání vìže na urèené místo na herní ploše
-    public void PlaceTower(GameObject towerPrefab)
+    void Start()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (!RaycastWithoutTriggers(ray, out hit))
-        {
-            return;
-        }
-
-        // Zkontrolujte, zda je na platformì již vìž
-        if (hit.collider.gameObject.CompareTag("platform") && hit.collider.gameObject.transform.childCount == 0)
-        {
-            Vector3 center = hit.collider.bounds.center;
-            center.y = towerPrefab.transform.position.y; // Zarovnání se Y pozicí vìže
-            focusObs = Instantiate(towerPrefab, center, towerPrefab.transform.rotation);
-            DisableColliders();
-        }
+        // Nastavíme výchozí typ vìže
+        selectedTower = gatlingTower;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        PlaceTower();
+    }
+
+    void PlaceTower()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,8 +39,8 @@ public class UIInterface : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("platform") && hit.collider.gameObject.transform.childCount == 0)
             {
                 Vector3 center = hit.collider.bounds.center;
-                center.y = gatlingTower.transform.position.y; // Align with tower's Y position
-                focusObs = Instantiate(gatlingTower, center, gatlingTower.transform.rotation);
+                center.y = selectedTower.transform.position.y;
+                focusObs = Instantiate(selectedTower, center, selectedTower.transform.rotation);
                 DisableColliders();
             }
         }
@@ -68,7 +62,7 @@ public class UIInterface : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("platform"))
                 {
                     focusObs.transform.position = hit.collider.bounds.center;
-                    hit.collider.gameObject.tag = "occupied"; // Assign "occupied" tag to the block
+                    hit.collider.gameObject.tag = "occupied";
                     EnableColliders();
                 }
                 else
@@ -92,17 +86,20 @@ public class UIInterface : MonoBehaviour
 
     private void SetCollidersEnabled(bool enabled)
     {
-        Collider[] childColliders = focusObs.GetComponentsInChildren<Collider>(true);
-        Collider[] mainColliders = focusObs.GetComponents<Collider>();
-
-        foreach (Collider collider in childColliders)
+        if (focusObs != null)
         {
-            collider.enabled = enabled;
-        }
+            Collider[] childColliders = focusObs.GetComponentsInChildren<Collider>(true);
+            Collider[] mainColliders = focusObs.GetComponents<Collider>();
 
-        foreach (Collider collider in mainColliders)
-        {
-            collider.enabled = enabled;
+            foreach (Collider collider in childColliders)
+            {
+                collider.enabled = enabled;
+            }
+
+            foreach (Collider collider in mainColliders)
+            {
+                collider.enabled = enabled;
+            }
         }
     }
 
@@ -124,7 +121,24 @@ public class UIInterface : MonoBehaviour
         hit = new RaycastHit();
         return false;
     }
+
+    public void SelectGatlingTower()
+    {
+        selectedTower = gatlingTower;
+    }
+
+    public void SelectMissileTower()
+    {
+        selectedTower = missileTower;
+    }
+
+    public void SelectLaserTower()
+    {
+        selectedTower = laserTower;
+    }
 }
+
+
 
 
 

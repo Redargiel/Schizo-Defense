@@ -4,43 +4,27 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public int maxWave = 5;
-
+    public int maxWave = 10;
     private int currentWave = 0;
-
-    private bool isSpawning = false;
-
-    private int enemiesRemaining = 0;
-
-    private float timer = 0f;
-
     public float waveSpawnInterval = 45f;
-
     public Spawner spawner;
-    // Start is called before the first frame update
+
     void Start()
     {
         StartNextWave();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isSpawning)
+        if (!spawner.isSpawning)
         {
-            //Dokud se spawnují tak timer bude 0
-            timer = 0;
-        }
-        else
-        {
-            //Pokud se nespawnují zastaví se countdown
-            timer -= Time.deltaTime;
-            if (timer <= 0)
+            waveSpawnInterval -= Time.deltaTime;
+            if (waveSpawnInterval <= 0)
             {
                 if (currentWave >= maxWave)
                 {
-                    //Zda jsme dosáhli maximální poèet wavek, tak se zastaví spawning
-                    StopSpawning();
+                    // Dosáhli jsme maximálního poètu wavek
+                    spawner.StopSpawning();
                 }
                 else
                 {
@@ -50,27 +34,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void EnemyDestroyed()
-    {
-        enemiesRemaining--;
-        if (enemiesRemaining == 0)
-        {
-            isSpawning = false;
-            // Všechny enemáci byli znièeni, resetuje se na waveSpawnInterval
-            timer = waveSpawnInterval;
-        }
-    }
     void StartNextWave()
     {
         currentWave++;
         spawner.StartNextWave();
-        enemiesRemaining = spawner.maxCount;
-        isSpawning = true;
+        waveSpawnInterval = 45f; // Resetujeme interval pro další wave
     }
-
-    void StopSpawning()
-    {
-        spawner.StopSpawning();
-        isSpawning = false;
-    }    
 }
+
+
+
+

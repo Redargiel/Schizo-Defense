@@ -9,9 +9,15 @@ public class MinigunVez : MonoBehaviour
 
     public GameObject core;
 
-    public float turningSpeed = 20;
+    public float turningSpeed = 50;
 
     public float angleTurningAccuracy = 80;
+
+    public float reloadPocet = 0;
+
+    public float prebij = 0;
+
+    public float damage = 0;
 
     private List<GameObject> enemiesInRange = new List<GameObject>();
 
@@ -54,7 +60,7 @@ public class MinigunVez : MonoBehaviour
         }
         GameObject closestEnemy = null;
         float closestDistance = float.MaxValue;
-
+        Debug.Log(enemiesInRange.Count);
         foreach (GameObject enemy in enemiesInRange)
         {
             if (enemy == null)
@@ -110,11 +116,11 @@ public class MinigunVez : MonoBehaviour
 
     private void Fire()
     {
-        if (bulletsFired % 30 == 0 && !IsReloading)
+        if (bulletsFired % prebij == 0 && !IsReloading)
         {
             IsReloading = true;
         }
-        if (IsReloading && reloadCounter < 50)
+        if (IsReloading && reloadCounter < reloadPocet)
         {
             reloadCounter++;
             return;
@@ -123,7 +129,7 @@ public class MinigunVez : MonoBehaviour
         reloadCounter = 0;
         bulletsFired++;
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        projectile.GetComponent<MinigunProjectile>().SetDamage(5);
+        projectile.GetComponent<MinigunProjectile>().SetDamage(Convert.ToInt32(damage));
         projectile.GetComponent<Rigidbody>().velocity = firePoint.forward * 14f;
     }
 }

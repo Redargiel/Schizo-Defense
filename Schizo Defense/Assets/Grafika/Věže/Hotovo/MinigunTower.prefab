@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8b99c7717bcb2874f8495c9192ebc66e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.55
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b99c7717bcb2874f8495c9192ebc66e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.55
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b99c7717bcb2874f8495c9192ebc66e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.55
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b99c7717bcb2874f8495c9192ebc66e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -234,6 +234,9 @@ MonoBehaviour:
   core: {fileID: 2618448520933869874}
   turningSpeed: 20
   angleTurningAccuracy: 80
+  reloadPocet: 50
+  prebij: 40
+  damage: 1
   projectilePrefab: {fileID: 1006326220128224125, guid: d7eded4b5d9f90b4bb1a667816c180ee, type: 3}
   firePoint: {fileID: 4331750756148403938}
 --- !u!135 &3123600067458379362

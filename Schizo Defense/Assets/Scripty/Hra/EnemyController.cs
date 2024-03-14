@@ -6,55 +6,44 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    public LevelManager levelManager; //Reference na level manager
-
     private List<Transform> wayPoints;
-
-    public LayerMask towerLayer;
-
     private int currentWayPointIndex = 0;
-
+    private NavMeshAgent agent;
+    private LevelManager levelManager; // Reference na level manager
+    public Slider healthBarPrefab;
+    private Slider healthBar;
+    public int maxHealth = 100;
+    public LayerMask towerLayer;
     private float agentStoppingDistance = 0.3f;
-
     private bool wayPointSet = false;
 
-    public Slider healthBarPrefab;
-
-    Slider healthBar;
-
-    public int maxHealth = 100;
-
-    NavMeshAgent agent;
-
-    // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         levelManager = FindObjectOfType<LevelManager>(); // Najde se LevelManager ve scénì
 
-        healthBar = Instantiate(healthBarPrefab, this.transform.position, Quaternion.identity);
-        healthBar.transform.SetParent(GameObject.Find("Canvas").transform);
+        // Instantiate HP bar
+        healthBar = Instantiate(healthBarPrefab, Vector3.zero, Quaternion.identity);
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+        healthBar.transform.SetParent(GameObject.Find("Canvas").transform); // Nastavit rodièe na Canvas
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!wayPointSet)
-        {
             return;
-        }
+
+        // Aktualizace pozice HP baru
         if (healthBar)
-        {
-            healthBar.transform.position = Camera.main.WorldToScreenPoint(this.transform.position + Vector3.up * 2f);
-        }
+            healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2f);
+
+        // Pohyb nepøítele
         if (!agent.pathPending && agent.remainingDistance <= agentStoppingDistance)
         {
             if (currentWayPointIndex == wayPoints.Count)
             {
-                levelManager.EnemyDestroyed();
-                Destroy(this.gameObject, 0.1f);
+                Destroy(gameObject, 0.1f);
                 Destroy(healthBar.gameObject, 0.1f);
             }
             else
@@ -65,12 +54,15 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    // Nastavení cílových bodù pohybu
     public void SetDestination(List<Transform> wayPoints)
     {
         this.wayPoints = wayPoints;
+        currentWayPointIndex = 0;
         wayPointSet = true;
     }
 
+    // Poškození nepøítele
     public void Hit(int damage)
     {
         if (healthBar)
@@ -78,21 +70,21 @@ public class EnemyController : MonoBehaviour
             healthBar.value -= damage;
             if (healthBar.value <= 0)
             {
+                // Zjistí, zda-li byla znièena vìž
                 float range = 15f;
-
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, towerLayer);
-
                 foreach (var hitCollider in hitColliders)
                 {
                     MinigunVez tower = hitCollider.GetComponent<MinigunVez>();
                     if (tower != null)
-                    {
                         tower.EnemyDestroyed(gameObject);
-                    }
                 }
+
+                // Znièení HP baru a nepøítele
                 Destroy(healthBar.gameObject);
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
     }
 }
+

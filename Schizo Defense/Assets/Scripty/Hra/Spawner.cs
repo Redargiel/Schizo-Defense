@@ -1,40 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-
     public float spawnRate = 0.5f;
-
     public List<Transform> wayPoints;
-
     public int maxCount = 10;
+    private int currentWave = 1;
 
-    private int count = 0;
+    private int enemiesSpawned = 0;
 
-    void Spawn()
+    public bool isSpawning = false;
+
+    public void StartSpawning()
     {
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        enemy.GetComponent<EnemyController>().SetDestination(wayPoints);
+        isSpawning = true;
+        StartCoroutine(SpawnWave());
+    }
 
-        count++;
-
-        if (count >= maxCount)
+    IEnumerator SpawnWave()
+    {
+        enemiesSpawned = 0;
+        int totalEnemies = currentWave * 10;
+        while (enemiesSpawned < totalEnemies)
         {
-            CancelInvoke();
+            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemy.GetComponent<EnemyController>().SetDestination(wayPoints);
+            enemiesSpawned++;
+            yield return new WaitForSeconds(spawnRate);
         }
+        isSpawning = false;
     }
 
     public void StartNextWave()
     {
-        count = 0;
-        InvokeRepeating("Spawn", 1, spawnRate);
+        currentWave++;
+        StartSpawning();
     }
 
     public void StopSpawning()
     {
-        CancelInvoke();
+        StopCoroutine(SpawnWave());
     }
 }
